@@ -1,4 +1,6 @@
 import express from "express";
+import exercisesRouter from './routes/exercises'
+import usersRouter from './routes/users'
 import mongoose from "mongoose";
 import bodyparser from "body-parser";
 import cors from "cors";
@@ -12,6 +14,8 @@ const PORT = 4000;
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(cors());
+app.use('/exercises', exercisesRouter)
+app.use('/users', usersRouter)
 
 const uri = process.env.ATLAS_URI
 mongoose.Promise = global.Promise;
@@ -22,6 +26,7 @@ mongoose.connect(
     pass: "soccerapp",
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
   }
 );
 
@@ -29,6 +34,7 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('DB connection succesful!!!')
 })
+
 
 app.listen(PORT, () => { console.log(`Server started at ${PORT}`) });
 app.get("/", (req, res) => { res.send(`App is running on ${PORT}`) });
