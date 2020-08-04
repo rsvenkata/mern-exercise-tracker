@@ -11,6 +11,7 @@ import Navbar from './components/Navbar'
 function App() {
   return (
     <Router>
+      <div className='container'>
       <Navbar />
       <br />
 
@@ -18,7 +19,7 @@ function App() {
       <Route path = '/edit/:id' exact component = {EditExercises} />
       <Route path = '/create' exact component = {CreateExercises} />
       <Route path = '/user' exact component = {CreateUser} />
-
+      </div>
     </Router>
     
   );
